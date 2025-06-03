@@ -12,4 +12,23 @@
       Add Task
     </a>
   </div>
+<div class="flex justify-between items-center bg-gray-800 p-4 rounded-md">
+  <h2 class="text-2xl font-bold text-white">See today's quote!</h2>
+  <qrcode
+    [qrdata]="quote"
+    [width]="100"
+    [errorCorrectionLevel]="'M'"
+    class="ml-4">
+  </qrcode>
+</div>
+
+<!-- <p class="mt-4 text-white text-center italic">"{{ quote }}"</p>
+<p class="text-white text-center text-sm">- {{ author }}</p> -->
+
+<button
+  (click)="fetchRandomQuote()"
+  class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+  New Quote
+</button>
+
 </div>

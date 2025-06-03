@@ -35,4 +35,24 @@ export class TaskService {
       headers: this.getAuthHeaders()
     });
   }
+
+  deleteTask(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  // ✅ Fetch a single task by ID (for editing)
+  getTaskById(id: number): Observable<Task> {
+    return this.http.get<Task>(`${this.baseUrl}/${id}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  // ✅ Update an existing task
+  updateTask(id: number, task: Task): Observable<Task> {
+    return this.http.put<Task>(`${this.baseUrl}/update/${id}`, task, {
+      headers: this.getAuthHeaders()
+    });
+  }
 }

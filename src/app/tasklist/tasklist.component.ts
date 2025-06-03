@@ -25,9 +25,28 @@ export class TasklistComponent implements OnInit {
       next: (data) => {
         this.tasks = data;
       },
-      error: (error) => {
-        console.error('Error fetching tasks:', error);
+      error: (err) => {
+        console.error('Failed to fetch tasks:', err);
       }
     });
   }
+
+  onDelete(id: number | undefined): void {
+    if (!id) return;
+
+    if (confirm('Are you sure you want to delete this task?')) {
+      this.taskService.deleteTask(id).subscribe({
+        next: () => {
+          this.tasks = this.tasks.filter(task => task.id !== id); // Update list
+        },
+        error: (err) => {
+          console.error('Error deleting task:', err);
+        }
+      });
+    }
+  }
+
+  // onEdit(task: Task): void {
+  //   this.router.navigate(['/edit-task', task.id]);
+  // }
 }
