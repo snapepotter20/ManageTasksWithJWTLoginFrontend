@@ -6,6 +6,7 @@ export interface Task {
   id?: number;
   title: string;
   description: string;
+  status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
 }
 
 @Injectable({
@@ -42,16 +43,18 @@ export class TaskService {
     });
   }
 
-  // ✅ Fetch a single task by ID (for editing)
   getTaskById(id: number): Observable<Task> {
     return this.http.get<Task>(`${this.baseUrl}/${id}`, {
       headers: this.getAuthHeaders()
     });
   }
 
-  // ✅ Update an existing task
-  updateTask(id: number, task: Task): Observable<Task> {
-    return this.http.put<Task>(`${this.baseUrl}/update/${id}`, task, {
+  // ✅ Updated to match drag-and-drop usage
+  updateTask(task: Task): Observable<Task> {
+    if (!task.id) {
+      throw new Error('Task ID is required for update.');
+    }
+    return this.http.put<Task>(`${this.baseUrl}/update/${task.id}`, task, {
       headers: this.getAuthHeaders()
     });
   }

@@ -12,7 +12,13 @@ export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard] },
   { path: 'tasks', component: TasklistComponent, canActivate: [AuthGuard] },
   { path: 'add-task', component: AddtaskComponent, canActivate: [AuthGuard] },
-  { path: 'tasks/edit/:id', component: EditTaskComponent, canActivate: [AuthGuard] }, // 👈 new route
+  {
+    path: 'tasks/edit/:id',
+    component: EditTaskComponent,
+    canActivate: [AuthGuard],
+    data: { prerender: false } // 👈 disables SSR prerendering
+  }
 ];
+
 
 export const appRouter = provideRouter(routes);
